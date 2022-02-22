@@ -15,7 +15,7 @@ $ go test ./...
 <br>
 
 ## Starting the server
-```
+```bash
 $ go ./main -config config.json
 ```
 
@@ -53,11 +53,10 @@ The predefined "admin" can login using the pin in the config file and create use
 
 Admin user is a pre-defined user responsible for creating users and account in the system. Admin can login using "admin" and their pin:
 
-```json
-POST /session/v1/login HTTP/1.1
+```
+POST /session/v1/login
 Host: localhost:9999
 Content-Type: application/json
-Content-Length: 45
 
 {
     "user_id": "admin",
@@ -93,8 +92,11 @@ Any user other than admin can only access the User APIs (/api/v1/.* endpoints). 
 ### Login API
 This is the only API that doesn't need authentication (doesn't need x-user-id and x-session-id headers)
 
-```json
+```
 POST /session/v1/login
+Host: localhost:9999
+Content-Type: application/json
+
 {
     "user_id": "admin",
     "pin": "4444"
@@ -116,13 +118,12 @@ Response
 Only accessible to "admin" user
 
 #### Create User
-```json
-POST /admin/v1/users HTTP/1.1
+```
+POST /admin/v1/users
 Host: localhost:9999
+Content-Type: application/json
 x-user-id: admin
 x-session-id: ba7531d66dedd15df1ea5e7d02619a38cf573f83490cdd215b5de1f37a6cfb9e
-Content-Type: application/json
-Content-Length: 88
 
 {
     "id": "mike",
@@ -151,13 +152,12 @@ Response:
 <br>
 
 #### Create Account
-```json
-POST /admin/v1/accounts HTTP/1.1
+```
+POST /admin/v1/accounts
 Host: localhost:9999
+Content-Type: application/json
 x-user-id: admin
 x-session-id: ba7531d66dedd15df1ea5e7d02619a38cf573f83490cdd215b5de1f37a6cfb9e
-Content-Type: application/json
-Content-Length: 161
 
 {
     "id": "acc-mike-0001",
@@ -190,8 +190,8 @@ Response
 <bt>
 
 #### List Users
-```json
-GET /admin/v1/users HTTP/1.1
+```
+GET /admin/v1/users
 Host: localhost:9999
 x-user-id: admin
 x-session-id: ba7531d66dedd15df1ea5e7d02619a38cf573f83490cdd215b5de1f37a6cfb9e
@@ -233,8 +233,8 @@ Response
 <br>
 
 #### List Accounts
-```json
-GET /admin/v1/accounts HTTP/1.1
+```
+GET /admin/v1/accounts
 Host: localhost:9999
 x-user-id: admin
 x-session-id: ba7531d66dedd15df1ea5e7d02619a38cf573f83490cdd215b5de1f37a6cfb9e
@@ -280,8 +280,8 @@ Response
 Accessible to all users
 
 #### List Accounts
-```json
-GET /api/v1/accounts HTTP/1.1
+```
+GET /api/v1/accounts
 Host: localhost:9999
 x-user-id: mike
 x-session-id: b89526d67ccbd9d4c75d8a3800a844a1c9f55f9e6f51511a011a4d596fcfa4b7
@@ -310,8 +310,8 @@ Response
 <br>
 
 #### Get a single Account
-```json
-GET /api/v1/accounts/acc-mike-0001 HTTP/1.1
+```
+GET /api/v1/accounts/acc-mike-0001
 Host: localhost:9999
 x-user-id: mike
 x-session-id: b89526d67ccbd9d4c75d8a3800a844a1c9f55f9e6f51511a011a4d596fcfa4b7
@@ -339,13 +339,12 @@ Response
 
 
 #### Deposit into Account
-```json
-POST /api/v1/accounts/acc-mike-0001/transactions HTTP/1.1
+```
+POST /api/v1/accounts/acc-mike-0001/transactions
 Host: localhost:9999
 x-user-id: mike
 x-session-id: b89526d67ccbd9d4c75d8a3800a844a1c9f55f9e6f51511a011a4d596fcfa4b7
 Content-Type: application/json
-Content-Length: 45
 
 {
     "type": "deposit",
@@ -374,13 +373,12 @@ Response
 <br>
 
 #### Withdraw from Account
-```json
-POST /api/v1/accounts/acc-mike-0001/transactions HTTP/1.1
+```
+POST /api/v1/accounts/acc-mike-0001/transactions
 Host: localhost:9999
+Content-Type: application/json
 x-user-id: mike
 x-session-id: b89526d67ccbd9d4c75d8a3800a844a1c9f55f9e6f51511a011a4d596fcfa4b7
-Content-Type: application/json
-Content-Length: 46
 
 {
     "type": "withdraw",
@@ -410,7 +408,7 @@ Response
 
 #### List Transaction for Account
 ```
-GET /api/v1/accounts/acc-mike-0001/transactions HTTP/1.1
+GET /api/v1/accounts/acc-mike-0001/transactions
 Host: localhost:9999
 x-user-id: mike
 x-session-id: b89526d67ccbd9d4c75d8a3800a844a1c9f55f9e6f51511a011a4d596fcfa4b7
