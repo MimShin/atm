@@ -1,0 +1,6 @@
+{
+    "logLevel": "debug",
+    "dbPath": "/tmp/atm.db",
+    "adminPin": "4444",
+    "listenAddr": "localhost:9999"
+}
