@@ -21,8 +21,8 @@ func NewSessionManager() *SessionManager {
 	return &sm
 }
 
-func (sm *SessionManager) LoadOrStore(userID, password string) (sessionID string) {
-	sessionID = Hash(userID + password + time.Now().String())
+func (sm *SessionManager) LoadOrStore(userID, pin string) (sessionID string) {
+	sessionID = Hash(userID + pin + time.Now().String())
 	t, _ := sm.sessions.LoadOrStore(userID, sessionID)
 	return t.(string)
 }
@@ -33,7 +33,10 @@ func (sm *SessionManager) Delete(userID string) {
 
 func (sm *SessionManager) Get(userID string) (sessionID string, ok bool) {
 	s, ok := sm.sessions.Load(userID)
-	return s.(string), ok
+	if ok {
+		sessionID = s.(string)
+	}
+	return
 }
 
 func (sm *SessionManager) Check(userID, sessionID string) bool {

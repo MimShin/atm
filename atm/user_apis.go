@@ -69,7 +69,7 @@ func (atm *ATM) withdraw(userID UserID, tx Transaction) (account Account, err er
 
 		if result.Error != nil {
 			err = result.Error
-			log.Error("withdraw failed: err=%v", err)
+			log.Errorf("withdraw failed: err=%v", err)
 			return err
 		}
 
@@ -77,7 +77,7 @@ func (atm *ATM) withdraw(userID UserID, tx Transaction) (account Account, err er
 		result = dbTx.Create(&tx)
 		if result.Error != nil {
 			err = result.Error
-			log.Error("updating transaction list failed: err=%v", err)
+			log.Errorf("updating transaction list failed: err=%v", err)
 			return err
 		}
 
@@ -105,7 +105,7 @@ func (atm *ATM) deposit(userID UserID, tx Transaction) (account Account, err err
 
 		if result.Error != nil {
 			err = result.Error
-			log.Error("deposit failed: err=%v", err)
+			log.Errorf("deposit failed: err=%v", err)
 			return err
 		}
 
@@ -113,7 +113,7 @@ func (atm *ATM) deposit(userID UserID, tx Transaction) (account Account, err err
 		result = dbTx.Create(&tx)
 		if result.Error != nil {
 			err = result.Error
-			log.Error("updating transaction list failed: err=%v", err)
+			log.Errorf("updating transaction list failed: err=%v", err)
 			return err
 		}
 

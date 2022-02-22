@@ -45,7 +45,7 @@ type Account struct {
 	Currency    Currency  `gorm:"not null" json:"currency"`
 	Balance     Money     `gorm:"not null" json:"balance"`
 	OwnerID     UserID    `gorm:"not null" json:"owner_id"`
-	Owner       *User     `gorm:"foreignKey:OwnerID" json:"owner"`
+	Owner       *User     `gorm:"foreignKey:OwnerID" json:"-"`
 	IsActive    bool      `json:"is_active"`
 }
 
@@ -58,10 +58,10 @@ type TxType = string
 type Transaction struct {
 	AuditFields `gorm:"embedded"`
 	ID          TxID      `gorm:"primaryKey,autoIncrement" json:"id"`
-	GroupID     TxID      `gorm:"not null" json:"group_id"`
+	GroupID     TxID      `gorm:"not null" json:"-"`
 	Type        TxType    `gorm:"not null" json:"type"`
 	AccID       AccountID `gorm:"not null" json:"acc_id"`
-	Acc         *Account  `gorm:"foreignKey:AccID" json:"acc"`
+	Acc         *Account  `gorm:"foreignKey:AccID" json:"-"`
 	Value       Money     `gorm:"not null" json:"value"`
 }
 
